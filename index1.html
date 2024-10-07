@@ -1,0 +1,126 @@
+<!-- inventario.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inventario de Empanadas</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+  <div class="inventory-container">
+    <h1>Gestión de Inventario de Empanadas</h1>
+
+    <!-- Contenedor principal con distribución en columnas -->
+    <div class="inventory-content">
+      <!-- Columna izquierda: Tabla y botones -->
+      <div class="left-column">
+        <table>
+          <thead>
+            <tr>
+              <th>Producto</th>
+              <th>Precio</th>
+              <th>Inventario</th>
+              <th>Cantidad Vendida</th>
+            </tr>
+          </thead>
+          <tbody id="empanada-table">
+            <!-- Aquí se generarán dinámicamente las filas -->
+          </tbody>
+        </table>
+
+        <div class="buttons-container">
+          <button id="registrar-venta">Registrar Venta</button>
+          <button id="reiniciar-venta">Reiniciar Venta</button>
+        </div>
+      </div>
+
+      <!-- Columna derecha: Total de ventas y empanadas restantes -->
+      <div class="right-column">
+        <h2>Total Venta: <span id="total-venta">0</span> COP</h2>
+        <h2>Empanadas Restantes</h2>
+        <ul id="inventario-restante">
+          <!-- Aquí se mostrará el inventario restante -->
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Datos de empanadas
+    const empanadas = {
+      carne: { precio: 3500, inventario: 50 },
+      pollo: { precio: 3500, inventario: 50 },
+      mortadela: { precio: 3500, inventario: 50 },
+      ranchera: { precio: 3500, inventario: 50 },
+      'pollo-queso': { precio: 3500, inventario: 50 },
+      papas: { precio: 3500, inventario: 50 },
+      mixtas: { precio: 3500, inventario: 50 },
+      'arepas-carne': { precio: 3500, inventario: 50 },
+      chicharron: { precio: 3500, inventario: 50 },
+      patacones: { precio: 10000, inventario: 50 },
+    };
+
+    let totalVenta = 0;
+
+    // Generar tabla de empanadas
+    function generarTabla() {
+      const tableBody = document.getElementById('empanada-table');
+      tableBody.innerHTML = '';
+
+      for (const [nombre, datos] of Object.entries(empanadas)) {
+        const fila = document.createElement('tr');
+
+        fila.innerHTML = `
+          <td>${nombre}</td>
+          <td>${datos.precio} COP</td>
+          <td id="inventario-${nombre}">${datos.inventario}</td>
+          <td><input type="number" id="cantidad-${nombre}" min="0" value="0"></td>
+        `;
+
+        tableBody.appendChild(fila);
+      }
+    }
+
+    // Registrar venta
+    document.getElementById('registrar-venta').addEventListener('click', function() {
+      totalVenta = 0;
+
+      for (const [nombre, datos] of Object.entries(empanadas)) {
+        const cantidadVendida = parseInt(document.getElementById(`cantidad-${nombre}`).value);
+        if (!isNaN(cantidadVendida) && cantidadVendida > 0) {
+          empanadas[nombre].inventario -= cantidadVendida;
+          totalVenta += cantidadVendida * datos.precio;
+        }
+      }
+
+      document.getElementById('total-venta').textContent = totalVenta;
+      actualizarInventarioRestante();
+      generarTabla(); // Actualiza la tabla después de la venta
+    });
+
+    // Reiniciar venta
+    document.getElementById('reiniciar-venta').addEventListener('click', function() {
+      generarTabla(); // Reinicia la tabla sin perder inventario
+      totalVenta = 0;
+      document.getElementById('total-venta').textContent = totalVenta;
+    });
+
+    // Mostrar inventario restante
+    function actualizarInventarioRestante() {
+      const inventarioList = document.getElementById('inventario-restante');
+      inventarioList.innerHTML = '';
+
+      for (const [nombre, datos] of Object.entries(empanadas)) {
+        const listItem = document.createElement('li');
+        listItem.textContent = `${nombre}: ${datos.inventario} unidades restantes`;
+        inventarioList.appendChild(listItem);
+      }
+    }
+
+    // Inicializar la página
+    generarTabla();
+    actualizarInventarioRestante();
+  </script>
+</body>
+</html>

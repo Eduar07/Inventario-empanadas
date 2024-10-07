@@ -1,0 +1,38 @@
+<!-- login.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Inventario de Empanadas</title>
+  <link rel="stylesheet" href="estilos2.css">
+</head>
+<body>
+  <div class="login-container">
+    <h1>Iniciar Sesión</h1>
+    <form id="loginForm">
+      <label for="username">Usuario:</label>
+      <input type="text" id="username" required>
+      <label for="password">Contraseña:</label>
+      <input type="password" id="password" required>
+      <button type="submit">Login</button>
+    </form>
+    <p id="error-message" style="color:red; display:none;">Usuario o contraseña incorrectos</p>
+  </div>
+
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+
+      // Validación simple
+      if(username === "admin" && password === "1234") {
+        window.location.href = "inventario.html"; // Redirige a la página de inventario
+      } else {
+        document.getElementById('error-message').style.display = "block";
+      }
+    });
+  </script>
+</body>
+</html>

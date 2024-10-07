@@ -1,0 +1,116 @@
+/* Reset general de márgenes y padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Estilo general del body */
+  body {
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(135deg, #f06a6a, #ffcc70);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+  }
+  
+  /* Estilo del contenedor de login */
+  .login-container {
+    background-color: #fff;
+    padding: 40px 30px;
+    border-radius: 12px;
+    max-width: 400px;
+    width: 100%;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  /* Efecto hover en el contenedor */
+  .login-container:hover {
+    transform: translateY(-10px);
+    box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Título de la página de login */
+  h1 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+  }
+  
+  /* Estilo de los campos de entrada */
+  input {
+    width: 100%;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+    transition: all 0.3s ease;
+  }
+  
+  /* Efecto cuando el campo de entrada está enfocado */
+  input:focus {
+    border-color: #ff7043;
+    outline: none;
+    box-shadow: 0px 0px 8px rgba(255, 112, 67, 0.5);
+  }
+  
+  /* Estilo del botón */
+  button {
+    width: 100%;
+    padding: 15px;
+    background-color: #ff7043;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  /* Efecto hover y clic en el botón */
+  button:hover {
+    background-color: #ff5722;
+  }
+  
+  button:active {
+    transform: scale(0.98);
+  }
+  
+  /* Mensaje de error */
+  #error-message {
+    margin-top: 15px;
+    color: #ff5252;
+    font-weight: bold;
+    display: none;
+  }
+  
+  /* Animaciones para la aparición de los elementos */
+  input, button {
+    animation: fadeIn 1s ease forwards;
+    opacity: 0;
+  }
+  
+  input:nth-child(1) {
+    animation-delay: 0.2s;
+  }
+  
+  input:nth-child(2) {
+    animation-delay: 0.4s;
+  }
+  
+  button {
+    animation-delay: 0.6s;
+  }
+  
+  @keyframes fadeIn {
+    to {
+      opacity: 1;
+    }
+  }
+  
