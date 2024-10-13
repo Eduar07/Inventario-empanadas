@@ -1,4 +1,3 @@
-<!-- inventario.html -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -11,7 +10,6 @@
   <div class="inventory-container">
     <h1>Gestión de Inventario de Empanadas</h1>
 
-    <!-- Contenedor principal con distribución en columnas -->
     <div class="inventory-content">
       <!-- Columna izquierda: Tabla y botones -->
       <div class="left-column">
@@ -22,105 +20,56 @@
               <th>Precio</th>
               <th>Inventario</th>
               <th>Cantidad Vendida</th>
+              <th>Acciones</th>
             </tr>
           </thead>
           <tbody id="empanada-table">
-            <!-- Aquí se generarán dinámicamente las filas -->
+            <!-- Filas generadas dinámicamente -->
           </tbody>
         </table>
 
         <div class="buttons-container">
           <button id="registrar-venta">Registrar Venta</button>
           <button id="reiniciar-venta">Reiniciar Venta</button>
+          <button id="agregar-producto">Agregar Producto</button>
+          <button id="reiniciar-total">Reiniciar Total</button>
         </div>
       </div>
 
-      <!-- Columna derecha: Total de ventas y empanadas restantes -->
+      <!-- Columna derecha: Información de ventas e inventario -->
       <div class="right-column">
-        <h2>Total Venta: <span id="total-venta">0</span> COP</h2>
+        <h2>Venta Reciente: <span id="venta-reciente">0</span> COP</h2>
+        <h2>Total Vendido Hoy: <span id="total-venta-dia">0</span> COP</h2>
+        <h2>Total de Empanadas Vendidas Hoy: <span id="total-empanadas-vendidas">0</span></h2>
         <h2>Empanadas Restantes</h2>
         <ul id="inventario-restante">
-          <!-- Aquí se mostrará el inventario restante -->
+          <!-- Lista generada dinámicamente -->
+        </ul>
+        <h2>Ventas de la Semana</h2>
+        <ul id="ventas-semana">
+          <!-- Ventas diarias -->
         </ul>
       </div>
     </div>
   </div>
 
-  <script>
-    // Datos de empanadas
-    const empanadas = {
-      carne: { precio: 3500, inventario: 50 },
-      pollo: { precio: 3500, inventario: 50 },
-      mortadela: { precio: 3500, inventario: 50 },
-      ranchera: { precio: 3500, inventario: 50 },
-      'pollo-queso': { precio: 3500, inventario: 50 },
-      papas: { precio: 3500, inventario: 50 },
-      mixtas: { precio: 3500, inventario: 50 },
-      'arepas-carne': { precio: 3500, inventario: 50 },
-      chicharron: { precio: 3500, inventario: 50 },
-      patacones: { precio: 10000, inventario: 50 },
-    };
+  <!-- Modal para agregar/editar productos -->
+  <div id="producto-modal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2 id="modal-title">Agregar Producto</h2>
+      <form id="producto-form">
+        <label for="producto-nombre">Nombre:</label>
+        <input type="text" id="producto-nombre" required>
+        <label for="producto-precio">Precio:</label>
+        <input type="number" id="producto-precio" min="0" required>
+        <label for="producto-inventario">Inventario:</label>
+        <input type="number" id="producto-inventario" min="0" required>
+        <button type="submit" id="guardar-producto">Guardar</button>
+      </form>
+    </div>
+  </div>
 
-    let totalVenta = 0;
-
-    // Generar tabla de empanadas
-    function generarTabla() {
-      const tableBody = document.getElementById('empanada-table');
-      tableBody.innerHTML = '';
-
-      for (const [nombre, datos] of Object.entries(empanadas)) {
-        const fila = document.createElement('tr');
-
-        fila.innerHTML = `
-          <td>${nombre}</td>
-          <td>${datos.precio} COP</td>
-          <td id="inventario-${nombre}">${datos.inventario}</td>
-          <td><input type="number" id="cantidad-${nombre}" min="0" value="0"></td>
-        `;
-
-        tableBody.appendChild(fila);
-      }
-    }
-
-    // Registrar venta
-    document.getElementById('registrar-venta').addEventListener('click', function() {
-      totalVenta = 0;
-
-      for (const [nombre, datos] of Object.entries(empanadas)) {
-        const cantidadVendida = parseInt(document.getElementById(`cantidad-${nombre}`).value);
-        if (!isNaN(cantidadVendida) && cantidadVendida > 0) {
-          empanadas[nombre].inventario -= cantidadVendida;
-          totalVenta += cantidadVendida * datos.precio;
-        }
-      }
-
-      document.getElementById('total-venta').textContent = totalVenta;
-      actualizarInventarioRestante();
-      generarTabla(); // Actualiza la tabla después de la venta
-    });
-
-    // Reiniciar venta
-    document.getElementById('reiniciar-venta').addEventListener('click', function() {
-      generarTabla(); // Reinicia la tabla sin perder inventario
-      totalVenta = 0;
-      document.getElementById('total-venta').textContent = totalVenta;
-    });
-
-    // Mostrar inventario restante
-    function actualizarInventarioRestante() {
-      const inventarioList = document.getElementById('inventario-restante');
-      inventarioList.innerHTML = '';
-
-      for (const [nombre, datos] of Object.entries(empanadas)) {
-        const listItem = document.createElement('li');
-        listItem.textContent = `${nombre}: ${datos.inventario} unidades restantes`;
-        inventarioList.appendChild(listItem);
-      }
-    }
-
-    // Inicializar la página
-    generarTabla();
-    actualizarInventarioRestante();
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>

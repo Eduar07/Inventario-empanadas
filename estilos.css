@@ -1,129 +1,182 @@
-/* Reset de márgenes y padding */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    background-color: #ffffff;
-  }
+/* Estilos generales */
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #e0e0e0;
+  margin: 0;
+  padding: 20px;
+}
 
-  /* Contenedor principal del inventario */
-  .inventory-container {
-    max-width: 1100px;
-    margin: 20px auto;
-    background: white;
-    padding: 40px;
-    border-radius: 12px;
-    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Flexbox para distribuir la página en dos columnas */
+.inventory-container {
+  background-color: #e0e0e0;
+  padding: 20px;
+  border-radius: 20px;
+  max-width: 1200px;
+  margin: auto;
+  box-shadow: inset 8px 8px 16px #bebebe,
+              inset -8px -8px 16px #ffffff;
+}
+
+h1, h2 {
+  text-align: center;
+  color: #333;
+}
+
+.inventory-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.left-column, .right-column {
+  flex: 1;
+  min-width: 300px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+table th, table td {
+  padding: 12px;
+  border: none;
+  text-align: center;
+  background-color: #e0e0e0;
+  border-radius: 12px;
+  box-shadow:  4px 4px 8px #bebebe,
+               -4px -4px 8px #ffffff;
+}
+
+.buttons-container {
+  display: flex;
+  justify-content: space-around;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+button {
+  padding: 15px 20px;
+  background-color: #e0e0e0;
+  color: #555;
+  border: none;
+  border-radius: 12px;
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow:  8px 8px 16px #bebebe,
+              -8px -8px 16px #ffffff;
+  transition: all 0.2s ease;
+}
+
+/* Botones anaranjados con efecto neumorphism */
+button {
+  background-color: #FFB74D;
+  color: #fff;
+  box-shadow:  8px 8px 16px #cc9240,
+              -8px -8px 16px #ffd854;
+}
+
+button:hover {
+  box-shadow: inset 4px 4px 8px #cc9240,
+              inset -4px -4px 8px #ffd854;
+}
+
+input[type="number"] {
+  width: 60px;
+  padding: 10px;
+  border: none;
+  border-radius: 12px;
+  text-align: center;
+  background-color: #e0e0e0;
+  box-shadow: inset 4px 4px 8px #bebebe,
+              inset -4px -4px 8px #ffffff;
+}
+
+.right-column ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.right-column li {
+  background-color: #e0e0e0;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 12px;
+  box-shadow:  4px 4px 8px #bebebe,
+               -4px -4px 8px #ffffff;
+}
+
+/* Estilos para el modal */
+.modal {
+  display: none; 
+  position: fixed; 
+  z-index: 1;
+  padding-top: 100px; 
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%; 
+  overflow: auto;
+  background: rgba(0,0,0,0.5);
+}
+
+.modal-content {
+  background-color: #e0e0e0;
+  margin: auto;
+  padding: 20px;
+  border-radius: 20px;
+  width: 80%;
+  max-width: 400px;
+  box-shadow:  8px 8px 16px #bebebe,
+              -8px -8px 16px #ffffff;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+.close:hover {
+  color: #000;
+}
+
+input[type="text"], input[type="number"] {
+  width: 100%;
+  padding: 15px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 12px;
+  background-color: #e0e0e0;
+  box-shadow: inset 4px 4px 8px #bebebe,
+              inset -4px -4px 8px #ffffff;
+}
+
+label {
+  font-weight: bold;
+  color: #555;
+}
+
+#guardar-producto {
+  width: 100%;
+  padding: 15px;
+  background-color: #FFB74D;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  box-shadow:  8px 8px 16px #cc9240,
+              -8px -8px 16px #ffd854;
+}
+
+#guardar-producto:hover {
+  box-shadow: inset 4px 4px 8px #cc9240,
+              inset -4px -4px 8px #ffd854;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
   .inventory-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 30px;
+    flex-direction: column;
   }
-  
-  /* Columna izquierda: Tabla y botones */
-  .left-column {
-    width: 65%;
-  }
-  
-  /* Tabla con más espacio */
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-  }
-  
-  table, th, td {
-    border: 1px solid #ddd;
-  }
-  
-  th, td {
-    padding: 15px;
-    text-align: left;
-  }
-  
-  th {
-    background-color: #007bff;
-    color: white;
-  }
-  
-  tr:nth-child(even) {
-    background-color: #f8f9fa;
-  }
-  
-  tr:hover {
-    background-color: #e9ecef;
-  }
-  
-  /* Botones */
-  .buttons-container {
-    display: flex;
-    gap: 10px;
-  }
-  
-  button {
-    flex: 1;
-    padding: 10px;
-    background-color: #28a745;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  button:hover {
-    background-color: #218838;
-  }
-  
-  /* Columna derecha: Total de ventas y empanadas restantes */
-  .right-column {
-    width: 30%;
-    background-color: #f8f9fa;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .right-column h2 {
-    margin-bottom: 15px;
-    color: #333;
-    font-weight: bold;
-  }
-  
-  ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  ul li {
-    background-color: white;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Responsive para dispositivos móviles */
-  @media (max-width: 768px) {
-    .inventory-content {
-      flex-direction: column;
-    }
-  
-    .left-column, .right-column {
-      width: 100%;
-    }
-  
-    table, th, td {
-      font-size: 14px;
-    }
-  
-    button {
-      padding: 10px;
-      font-size: 14px;
-    }
-  }
-  
+}
